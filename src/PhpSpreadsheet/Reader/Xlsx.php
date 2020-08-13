@@ -675,11 +675,16 @@ class Xlsx extends BaseReader
                                         // Read cell!
                                         switch ($cellDataType) {
                                             case 's':
-                                                if ((string) $c->v != '') {
-                                                    $value = $sharedStrings[(int) ($c->v)];
+                                                if ((string)$c->v != '') {
+                                                    $sharedIndex = (int)($c->v);
+                                                    if (array_key_exists($sharedIndex, $sharedStrings)) {
+                                                        $value = $sharedStrings[$sharedIndex];
 
-                                                    if ($value instanceof RichText) {
-                                                        $value = clone $value;
+                                                        if ($value instanceof RichText) {
+                                                            $value = clone $value;
+                                                        }
+                                                    } else {
+                                                        $value = '';
                                                     }
                                                 } else {
                                                     $value = '';
