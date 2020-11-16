@@ -656,7 +656,7 @@ class Xlsx extends BaseReader
                                     $rowIndex = 1;
                                     foreach ($row->c as $c) {
                                         $r = (string) $c['r'];
-                                        if ($r == '') {
+                                        if ($r == '' || preg_match('/^\d+$/', $r)) { // WB Bug
                                             $r = Coordinate::stringFromColumnIndex($rowIndex) . $cIndex;
                                         }
                                         $cellDataType = (string) $c['t'];
